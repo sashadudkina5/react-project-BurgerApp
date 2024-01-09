@@ -1,0 +1,20 @@
+.page_wrapper {
+    width: 1240px;
+    display: flex;
+    column-gap: 60px;
+    margin: 0 auto;
+}
+
+.wrapper_orders {
+    width: 895px;
+    height: 870px;
+    overflow-y: auto;
+}
+
+.orders_list {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    max-height: 800px;
+    overflow-y: auto;
+}

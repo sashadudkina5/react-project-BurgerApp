@@ -1,7 +1,7 @@
 import { getCookie, fetchWithRefresh } from "../../utils/api";
 import { getLoginSuccess } from "../UserData/actions";
 import { BASE_URL } from "../../utils/ApiConfig";
-import { checkResponse } from "../../utils/api";
+import {AppDispatch, ChangeProfileThunk} from "../../utils/types"
 
 interface IСhangedData {
   email: string;
@@ -9,8 +9,8 @@ interface IСhangedData {
   name: string;
 }
 
-export const changeUserInfoThunk =
-  (changedData: IСhangedData) => async (dispatch: any) => {
+export const changeUserInfoThunk  =
+  (changedData: IСhangedData):ChangeProfileThunk => async (dispatch: AppDispatch) => {
     try {
       const accessToken = getCookie("accessToken");
 

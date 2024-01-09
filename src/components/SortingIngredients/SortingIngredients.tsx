@@ -7,12 +7,12 @@ import { deleteIngredient } from "../BurgerConstructor/actions";
 import { useRef } from "react";
 import { useDrop, useDrag, DropTargetMonitor } from "react-dnd";
 import { ItemTypes } from "../../utils/item-types-dnd";
-import { CONSTRUCTOR_REORDER } from "../BurgerConstructor/actions";
-import {IIngredientCard} from "../../utils/types";
+import { CONSTRUCTOR_REORDER } from "../../redux_services/types-of-actions";
+import {IIngredientCardConstructor} from "../../utils/types";
 import { useAppDispatch } from "../../hooks/dispatch-selectos"
 
 interface ISortingIngredientsProps {
-  item: IIngredientCard;
+  item: IIngredientCardConstructor;
   index: number;
 }
 
@@ -21,7 +21,7 @@ const SortingIngredients: React.FC<ISortingIngredientsProps> = ({
   item,
 }) => {
   const dispatch = useAppDispatch()
-  const onDelete = (ingredientId: number) => {
+  const onDelete = (ingredientId: string) => {
     dispatch(deleteIngredient(ingredientId));
   };
 
@@ -84,11 +84,11 @@ const SortingIngredients: React.FC<ISortingIngredientsProps> = ({
         <DragIcon type="secondary"/>
         <ConstructorElement
           data-testid="dustbin"
-          text={item.name}
-          price={item.price}
-          thumbnail={item.image}
-          handleClose={() => onDelete(item.uniqID)}
-          key={item.uniqID}
+          text={item.ingredientObj!.name|| ""}
+          price={item.ingredientObj!.price || 0}
+          thumbnail={item.ingredientObj!.image || ""}
+          handleClose={() => onDelete(item.uniqID || "")}
+          key={item.uniqID || ""}
         />
       </div>
     </div>

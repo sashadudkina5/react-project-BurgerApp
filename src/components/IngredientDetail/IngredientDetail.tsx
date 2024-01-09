@@ -7,7 +7,7 @@ import {IIngredients, IIngredientCard} from "../../utils/types";
 import { useAppSelector, useAppDispatch } from "../../hooks/dispatch-selectos"
 
 interface IIngredientDetailProps {
-  selectedIngredient: IIngredientCard;
+  selectedIngredient: IIngredientCard | null;
 }
 
 function IngredientDetail({ selectedIngredient }: IIngredientDetailProps) {

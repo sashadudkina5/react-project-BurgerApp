@@ -6,10 +6,24 @@ import {
   GET_LOGIN_SUCCESS,
   GET_LOGIN_FAILED,
   GET_LOGIN_OUT_SUCCESS
-} from "./actions";
+} from "../types-of-actions";
+
+import {TUserDataActions} from "./actions"
 
 // Исходное состояние
-const initialState = {
+type TUserData = {
+  email: string | undefined;
+  name: string | undefined;
+}
+
+type TAppState = {
+  userData: TUserData;
+  isLoading: boolean;
+  error: null | any;
+  isLoggedIn: boolean;
+}
+
+const initialState: TAppState = {
   userData: {
     email: "",
     name: "",
@@ -19,7 +33,7 @@ const initialState = {
   isLoggedIn: false,
 };
 
-export const userDataReducer = (state = initialState, action) => {
+export const userDataReducer = (state = initialState, action: TUserDataActions): TAppState => {
   switch (action.type) {
     case GET_REGISTRATION_REQUEST: {
       return { ...state, isLoading: true };
@@ -29,8 +43,8 @@ export const userDataReducer = (state = initialState, action) => {
       return {
         ...state,
         userData: {
-          email: action.payload.email,
-          name: action.payload.name,
+          email: action.registrationData.email,
+          name: action.registrationData.name,
         },
         isLoading: false,
         error: null,
@@ -42,7 +56,7 @@ export const userDataReducer = (state = initialState, action) => {
         ...state,
         userData: { email: "", name: "" },
         isLoading: false,
-        error: action.error,
+        error: action.errorMessage,
       };
     }
 
@@ -54,8 +68,8 @@ export const userDataReducer = (state = initialState, action) => {
         return {
           ...state,
           userData: {
-            email: action.payload.email,
-            name: action.payload.name,
+            email: action.loginData.email,
+            name: action.loginData.name,
           },
           isLoading: false,
           isLoggedIn: true,
@@ -68,7 +82,7 @@ export const userDataReducer = (state = initialState, action) => {
           ...state,
           userData: { email: "", name: "" },
           isLoading: false,
-          error: action.payload,
+          error: action.errorMessage,
         };
       }
 

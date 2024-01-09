@@ -12,7 +12,7 @@ import { useDrop } from "react-dnd";
 import { ItemTypes } from "../../utils/item-types-dnd";
 import { useMemo, useCallback } from "react";
 import SortingIngredients from "../SortingIngredients/SortingIngredients";
-import {IIngredients, IIngredientCard} from "../../utils/types";
+import {IIngredientCardConstructor, IAllIngredientsConstructor} from "../../utils/types";
 import { useAppSelector } from "../../hooks/dispatch-selectos"
 
 
@@ -21,7 +21,7 @@ interface IBurgerConstructorProps {
 }
 
 function BurgerConstructor({ onClick }: IBurgerConstructorProps) {
-  const data: IIngredients = useAppSelector(getConstructorIngredients);
+  const data: IAllIngredientsConstructor = useAppSelector(getConstructorIngredients);
   const bunData = useAppSelector(getBunData);
 
   const [{ canDrop, isOver }, drop] = useDrop(() => ({
@@ -42,12 +42,12 @@ function BurgerConstructor({ onClick }: IBurgerConstructorProps) {
 
   const price = useMemo(() => {
     const bunPrice = bunData?.price || 0;
-    const ingredientsData: IIngredients = data || [];
-    const ingredientsPrice = ingredientsData.reduce((s, v) => s + v.price, 0);
+    const ingredientsData = data || [];
+    const ingredientsPrice = ingredientsData.reduce((s, v) => s + v.ingredientObj!.price!, 0);
     return bunPrice * 2 + ingredientsPrice;
   }, [data, bunData]);
 
-  const renderCard = useCallback((card: IIngredientCard, i: number) => {
+  const renderCard = useCallback((card: IIngredientCardConstructor, i: number) => {
     return <SortingIngredients index={i} key={card.uniqID} item={card} />;
   }, []);
 
@@ -60,8 +60,8 @@ function BurgerConstructor({ onClick }: IBurgerConstructorProps) {
               type="top"
               isLocked={true}
               text={`${bunData.name} (верх)`}
-              price={bunData.price}
-              thumbnail={bunData.image}
+              price={bunData.price!}
+              thumbnail={bunData.image!}
             />
           </div>
 
@@ -74,8 +74,8 @@ function BurgerConstructor({ onClick }: IBurgerConstructorProps) {
               type="bottom"
               isLocked={true}
               text={`${bunData.name} (низ)`}
-              price={bunData.price}
-              thumbnail={bunData.image}
+              price={bunData.price!}
+              thumbnail={bunData.image!}
             />
           </div>
         </>

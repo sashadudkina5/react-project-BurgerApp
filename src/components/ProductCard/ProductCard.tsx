@@ -9,7 +9,7 @@ import {
 import React from "react";
 import ProductItem from "../ProductItem/ProductItem";
 import { Link, useLocation } from "react-router-dom";
-import {IIngredientCard} from "../../utils/types";
+import {IIngredientCard, IIngredientCardConstructor} from "../../utils/types";
 import { useAppSelector, useAppDispatch } from "../../hooks/dispatch-selectos"
 
 
@@ -40,15 +40,16 @@ const ProductCard = React.forwardRef<HTMLDivElement, IIngredients>(
       const counters: { [key: string]: number } = {};
 
       if (bunData) {
-        counters[bunData._id] = 2;
+        counters[bunData._id!] = 2;
       }
 
-      data.forEach((ingredient: IIngredientCard) => {
-        if (!counters[ingredient._id]) {
-          counters[ingredient._id] = 0;
+      data.forEach((ingredient: IIngredientCardConstructor) => {
+        const ingredientId = ingredient.ingredientObj!._id!;
+        if (!counters[ingredientId]) {
+          counters[ingredientId] = 0;
         }
 
-        counters[ingredient._id]++;
+        counters[ingredientId]++;
       });
 
       setIngredientsCounters(counters);
@@ -73,7 +74,7 @@ const ProductCard = React.forwardRef<HTMLDivElement, IIngredients>(
                 onClick={() => openIngredientDetailModal(ingredient)}
               >
                 <Counter
-                  count={ingredientsCounters[ingredient._id] || 0}
+                  count={ingredientsCounters[ingredient._id!] || 0}
                   size="default"
                   extraClass="m-1"
                 />

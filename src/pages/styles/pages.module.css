@@ -1,0 +1,44 @@
+.page {
+  height: 100%;
+  width: 100%;
+}
+
+.window {
+  /* background-color: aqua; */
+  width: 480px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.title {
+  margin-bottom: 24px;
+}
+
+.wrapper {
+  display: flex;
+  width: 480px;
+  column-gap: 8px;
+}
+
+.menu {
+  width: 320px;
+}
+
+.profileWrapper {
+  display: flex;
+  width: auto;
+  position: absolute;
+  top: 30%;
+  left: 20%;
+  column-gap: 60px;
+}
+
+.order_details_wrapper {
+  padding: 50px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}

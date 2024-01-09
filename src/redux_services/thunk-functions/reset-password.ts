@@ -1,5 +1,6 @@
 import { BASE_URL } from "../../utils/ApiConfig";
 import { checkResponse } from "../../utils/api";
+import {AppDispatch, ForgotPasswordThunk} from "../../utils/types"
 
 interface InewPasswordData {
   password: string | number;
@@ -7,7 +8,7 @@ interface InewPasswordData {
 }
 
 export const resetPasswordThunk =
-  (newPasswordData: InewPasswordData) => async (dispatch: any) => {
+  (newPasswordData: InewPasswordData): ForgotPasswordThunk => async (dispatch: AppDispatch) => {
     try {
       const response = await fetch(`${BASE_URL}/password-reset/reset`, {
         method: "POST",

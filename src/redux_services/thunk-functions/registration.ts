@@ -6,15 +6,16 @@ import {
 import { setCookie } from "../../utils/api";
 import { BASE_URL } from "../../utils/ApiConfig";
 import { checkResponse } from "../../utils/api";
+import {AppDispatch, AppThunk} from "../../utils/types"
 
 interface IregistrationData {
-  password: string | number;
+  password: string;
   email: string;
   name: string;
 }
 
 export const registerThunk =
-  (registrationData: IregistrationData) => async (dispatch: any) => {
+  (registrationData: IregistrationData): AppThunk => async (dispatch: AppDispatch) => {
     try {
       dispatch(getRegistrationRequest());
 

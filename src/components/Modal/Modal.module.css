@@ -1,18 +1,20 @@
 .modal {
     width: 720px;
-    height: auto;
-    position: absolute;
-    top: 180px;
+    top: 100px;
     left: 50%;
     right: 50%;
     transform: translateX(-50%);
     background: #1C1C21;
-    z-index: 1;
+    z-index: 200;
     border-radius: 40px;
     padding-top: 40px;
+    padding-bottom: 40px;
     padding-left: 40px;
     padding-right: 40px;
     position: fixed;
+    overflow-y: auto;
+    max-height: 70%; 
+    overflow-y: auto;
 }
 
 .closeButton {

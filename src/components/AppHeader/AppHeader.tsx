@@ -27,7 +27,7 @@ function AppHeader() {
         </NavLink>
 
         <NavLink
-          to={"/profile/orders"}
+          to={"/feed"}
           className={({ isActive }) =>
             `${appHeaderStyles.link} ${
               isActive ? appHeaderStyles.link_active : ""

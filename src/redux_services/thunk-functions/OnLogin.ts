@@ -6,13 +6,14 @@ import {
 import { setCookie } from "../../utils/api";
 import { BASE_URL } from "../../utils/ApiConfig";
 import { checkResponse } from "../../utils/api";
+import {AppDispatch, AppThunk} from "../../utils/types"
 
 interface ILoginData {
   password: string;
   email: string;
 }
 
-export const loginThunk = (loginData: ILoginData) => async (dispatch: any) => {
+export const loginThunk = (loginData: ILoginData): AppThunk => async (dispatch: AppDispatch) => {
   try {
     dispatch(getLoginRequest());
 

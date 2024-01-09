@@ -1,14 +1,12 @@
 import { getCookie, fetchWithRefresh } from "../../utils/api";
 import { getLoginSuccess, getLoginRequest, getLoginFailed } from "../UserData/actions";
 import { BASE_URL } from "../../utils/ApiConfig";
+import {IregistrationData} from "../../utils/types";
+import {AppDispatch, GetUserInfoThunk} from "../../utils/types"
 
-interface UserInfo {
-  email: string;
-  name: string;
-}
 
-export const getUserInfoThunk = () => async (
-  dispatch: any
+export const getUserInfoThunk = (): GetUserInfoThunk => async (
+  dispatch: AppDispatch
 ) => {
   try {
     dispatch(getLoginRequest());
@@ -16,7 +14,7 @@ export const getUserInfoThunk = () => async (
 
     if (!accessToken) {
       console.error('AccessToken is missing');
-      dispatch(getLoginFailed());
+      dispatch(getLoginFailed(Error));
       return null;
     }
 
@@ -29,9 +27,9 @@ export const getUserInfoThunk = () => async (
 
     // cant use CheckResponse here as response is not json type
     if (response.success) {
-      const userInfo: UserInfo = response.user;
-      const userEmail: string = userInfo.email;
-      const userName: string = userInfo.name;
+      const userInfo: IregistrationData = response.user;
+      const userEmail: string | undefined = userInfo.email;
+      const userName: string | undefined = userInfo.name;
       const loginData = {
         email: userEmail,
         name: userName,

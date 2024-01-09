@@ -1,12 +1,13 @@
 import { BASE_URL } from "../../utils/ApiConfig";
 import { checkResponse } from "../../utils/api";
+import {AppDispatch, ForgotPasswordThunk} from "../../utils/types"
 
 interface IEmailInfo {
   email: string;
 }
 
 export const forgotPasswordThunk =
-  (emailData: IEmailInfo) => async (dispatch: any) => {
+  (emailData: IEmailInfo): ForgotPasswordThunk => async (dispatch: AppDispatch) => {
     try {
       const response = await fetch(`${BASE_URL}/password-reset`, {
         method: "POST",

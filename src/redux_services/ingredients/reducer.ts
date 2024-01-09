@@ -2,10 +2,24 @@ import {
   GET_INGREDIENTS_REQUEST,
   GET_INGREDIENTS_SUCCESS,
   GET_INGREDIENTS_FAILED
-} from "../ingredients/actions";
+} from "../types-of-actions";
+
+import {IIngredientCard} from "../../utils/types";
+
+import {TGetIngredientsActions} from "./actions"
 
 // Исходное состояние
-const initialState = {
+type TIngredientsData = {
+  data: IIngredientCard[];
+}
+
+type TGetIngredientsState = {
+  ingredientsData: TIngredientsData;
+  isLoading: boolean;
+  error: null | any;
+}
+
+const initialState: TGetIngredientsState = {
   ingredientsData: {
     data: [],
   },
@@ -13,7 +27,7 @@ const initialState = {
   error: null,
 };
 
-export const ingredientsReducer = (state = initialState, action) => {
+export const ingredientsReducer = (state = initialState, action: TGetIngredientsActions): TGetIngredientsState => {
   switch (action.type) {
     case GET_INGREDIENTS_REQUEST: {
       return { ...state, isLoading: true };
@@ -22,7 +36,10 @@ export const ingredientsReducer = (state = initialState, action) => {
     case GET_INGREDIENTS_SUCCESS: {
       return {
         ...state,
-        ingredientsData: { data: action.payload },
+        ingredientsData: {
+          ...state.ingredientsData,
+          data: action.ingredientsData.data,
+        },
         isLoading: false,
       };
     }
@@ -32,7 +49,7 @@ export const ingredientsReducer = (state = initialState, action) => {
         ...state,
         ingredientsData: { data: [] },
         isLoading: false,
-        error: action.error,
+        error: action.errorMessage,
       };
     }
 
